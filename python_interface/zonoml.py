@@ -502,7 +502,7 @@ def relu_zono_layerwise(man,destructive,elem,start_offset, num_dim):
 
     res = None
     try:
-	#https://github.com/eth-sri/ELINA/blob/644ed43da8048503b1f967f270c0a391c79d4073/zonoml/zonoml_reduced_product.c#L576
+	#https://github.com/chen19970102/ELINA/blob/644ed43da8048503b1f967f270c0a391c79d4073/zonoml/zonoml_reduced_product.c#L576
         relu_zono_layerwise_c = zonoml_api.relu_zono_layerwise
         relu_zono_layerwise_c.restype = ElinaAbstract0Ptr
         relu_zono_layerwise_c.argtypes = [ElinaManagerPtr, c_bool, ElinaAbstract0Ptr, ElinaDim, ElinaDim]
