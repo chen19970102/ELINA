@@ -584,6 +584,7 @@ elina_abstract0_t * relu_zono_layerwise(elina_manager_t* man, bool destructive, 
 	//	res= relu_zono(man,true,res,i);
 	//}
         zonotope_t *zo = zonotope_of_abstract0(res);
+	//https://github.com/chen19970102/ELINA/blob/master/zonoml/zonoml_internal.h#L243
         relu_zono_parallel(man, zo, start_offset, num_dim, handle_relu_zono_parallel);
         res = abstract0_of_zonotope(man,zo);
        
