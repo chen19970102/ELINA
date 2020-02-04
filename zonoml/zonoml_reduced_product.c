@@ -576,16 +576,23 @@ elina_abstract0_t *maxpool_zono_refined(elina_manager_t* man, bool destructive, 
 elina_abstract0_t * relu_zono_layerwise(elina_manager_t* man, bool destructive, elina_abstract0_t * abs,  elina_dim_t start_offset, elina_dim_t num_dim){
 	//elina_dim_t i;
 	//elina_dim_t end = start_offset + num_dim;
+	//https://github.com/chen19970102/ELINA/blob/master/python_interface/elina_abstract0.py#L527
+	//https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_dimension.h#L49
 	elina_dimension_t dimension = elina_abstract0_dimension(man,abs);
 	
+	//https://github.com/chen19970102/ELINA/blob/master/python_interface/elina_abstract0.py#L32
+	//https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_abstract0.h#L40
 	elina_abstract0_t *res = destructive? abs : elina_abstract0_copy(man,abs);
    
 	//for(i=start_offset; i < end; i++){
 	//	res= relu_zono(man,true,res,i);
 	//}
+	//https://github.com/chen19970102/ELINA/blob/master/zonoml/zonoml_internal.h#L140
+	//https://github.com/chen19970102/ELINA/blob/master/elina_zonotope/zonotope_internal.h#L168
         zonotope_t *zo = zonotope_of_abstract0(res);
 	//https://github.com/chen19970102/ELINA/blob/master/zonoml/zonoml_internal.h#L243
         relu_zono_parallel(man, zo, start_offset, num_dim, handle_relu_zono_parallel);
+	////https://github.com/chen19970102/ELINA/blob/master/zonoml/zonoml_internal.h#L145
         res = abstract0_of_zonotope(man,zo);
        
     return res;
