@@ -249,13 +249,16 @@ static inline void relu_zono_parallel(elina_manager_t* man, zonotope_t *z, elina
 	}
 	int i;
 	
+	//https://github.com/chen19970102/ELINA/blob/master/elina_zonotope/zonotope_internal.c#L168
+	//https://github.com/chen19970102/ELINA/blob/master/elina_zonotope/zonotope_internal.h#L142
 	zonotope_internal_t* pr = zonotope_init_from_manager(man, ELINA_FUNID_ASSIGN_LINEXPR_ARRAY);
 	size_t offset = start_offset;
 	
-	
+	//https://github.com/chen19970102/ELINA/blob/master/elina_zonotope/zonotope_internal.h#L96
 	zonotope_noise_symbol_t ** epsilon_map = (zonotope_noise_symbol_t **)malloc(num_out_neurons*sizeof(zonotope_noise_symbol_t*));
 	zonotope_noise_symbol_t ** epsilon_map_extra = (zonotope_noise_symbol_t **)malloc(num_out_neurons*sizeof(zonotope_noise_symbol_t*));
 	for(i=0; i < (int)num_out_neurons; i++){
+		//https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_interval.h#L40
 		elina_interval_t *itv = zonotope_bound_dimension(man,z,offset);
 		double inf = itv->inf->val.dbl;
 		double sup = itv->sup->val.dbl;
@@ -269,12 +272,15 @@ static inline void relu_zono_parallel(elina_manager_t* man, zonotope_t *z, elina
 		double width_u = sup_u + inf_l;
 		
 		double bound_l, bound_u;
+		//https://github.com/chen19970102/ELINA/blob/master/elina_zonotope/elina_box_meetjoin.c#L113
 		elina_double_interval_mul(&bound_l, &bound_u, inf_l, inf_u, sup_l, sup_u);
 		double tmp = bound_l;
 		bound_l = bound_u;
 		bound_u = tmp;
+		//https://github.com/chen19970102/ELINA/blob/master/elina_zonotope/elina_box_meetjoin.c#L325
 		elina_double_interval_div(&bound_l, &bound_u, bound_l, bound_u, width_l, width_u);
 		if((inf<0) && (sup>0)){
+			//https://github.com/chen19970102/ELINA/blob/master/elina_zonotope/zonotope_internal.h#L240
 			epsilon_map[i] = zonotope_noise_symbol_add(pr, IN);
 			if((-inf>sup) && (-bound_l>1)){
 				epsilon_map_extra[i] = zonotope_noise_symbol_add(pr, IN);
@@ -283,6 +289,7 @@ static inline void relu_zono_parallel(elina_manager_t* man, zonotope_t *z, elina
 		else{
 			epsilon_map[i] = NULL;
 		}
+		//https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_interval.c#L51
 		elina_interval_free(itv);
 		offset++;
 	}
@@ -301,6 +308,7 @@ static inline void relu_zono_parallel(elina_manager_t* man, zonotope_t *z, elina
             		args[i].start_offset = start_offset;
 			args[i].epsilon_map = epsilon_map;	
 			args[i].epsilon_map_extra = epsilon_map_extra;
+			//create new thread (cpp function)
 	    		pthread_create(&threads[i], NULL,function, (void*)&args[i]);
 			
 	  	}
