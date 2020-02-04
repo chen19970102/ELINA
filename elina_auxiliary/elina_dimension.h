@@ -47,8 +47,9 @@ typedef unsigned int elina_dim_t;
 
 /* Datatype for specifying the dimensionality of an abstract value */
 typedef struct elina_dimension_t {
-  size_t intdim;
-  size_t realdim;
+  //size_t is the largest definetion of c language, in 64bits system it will be unsigned long int
+  size_t intdim;   //number of integer dimension
+  size_t realdim;  //number of real dimension
 } elina_dimension_t;
 
 /* Datatype for specifying change of dimension (addition or removal) */
