@@ -242,6 +242,7 @@ static inline void ffn_matmult_zono_parallel(zonotope_internal_t* pr, zonotope_t
 
 static inline void relu_zono_parallel(elina_manager_t* man, zonotope_t *z, elina_dim_t start_offset, elina_dim_t num_out_neurons, void *(*function)(void *)){
 	//int num_threads = get_nprocs();
+	//get threads of pc (sysconf is a linux system command to get core numbers)
 	int num_threads = sysconf(_SC_NPROCESSORS_ONLN);
 	if(num_threads <1){
 		num_threads = 1;
