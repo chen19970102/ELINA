@@ -88,13 +88,15 @@ typedef unsigned  int uint_t;
 /* Noise symbol */
 /****************/
 typedef enum noise_symbol_t {
-    IN,		/* Classical noise symbol */
-    UN,		/* Union noise symbol */
+    IN,		/* Classical noise symbol */  //real number type
+    UN,		/* Union noise symbol */      //interval type
 } noise_symbol_t;
 
 /* Noise symbol type */
 typedef struct zonotope_noise_symbol_t {
+    //line90, 選擇不同zonotope coeffietion
     noise_symbol_t	type;		/* type of noise symbol */	/* obsolete */
+    //epsilon 可以共用 (DeepZ Page.3)
     uint_t	index;		/* global index, noise symbols of the same index are shared */
 //    bool	constrained;	/* true if the noise symbol is constrained */
 } zonotope_noise_symbol_t;
@@ -141,10 +143,13 @@ typedef struct _zonotope_aff_t zonotope_aff_t;
 
 typedef struct _zonotope_internal_t {
     //zonotope_internal_t* itv;		/* interval internal representation */
-    uint_t		dim;		/* nb of noise symbol used */
-    zonotope_noise_symbol_t**	epsilon;	/* array of size index of epsilons */
-    elina_funid_t	funid;		/* current function */
-    elina_manager_t *	man;		/* back-pointer */
+    uint_t		dim;		/* nb of noise symbol used */ //epsilon(eta)的數量
+    //line96
+    zonotope_noise_symbol_t**	epsilon;	/* array of size index of epsilons */  //存epsilon的array，**是指到array的第一個
+    //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_manager.h#L58
+    elina_funid_t	funid;		/* current function */  //選擇function type
+    //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_manager.h#L195
+    elina_manager_t *	man;		/* back-pointer */  //
     elina_manager_t *	manNS;		/* abstract domain of noise symbols */
     elina_manager_t *	box;		/* box abstract domain used to compute constraints meet with an hypercube */
     elina_lincons0_array_t moo;		/* array of constraints -1 <= eps_i <= 1; size = 2index */
