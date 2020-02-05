@@ -46,9 +46,12 @@ typedef enum elina_coeff_discr_t {
   /* Discriminant for coefficients */
 
 typedef struct elina_coeff_t {
-  elina_coeff_discr_t discr; /* discriminant for coefficient */
+  //line42
+  elina_coeff_discr_t discr; /* discriminant for coefficient */  //coefficient型式
   union {
+    //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_scalar.h#L55
     elina_scalar_t* scalar;       /* cst (normal linear expression) */
+    //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_interval.h#L40
     elina_interval_t* interval;   /* interval (quasi-linear expression) */
   } val;
 } elina_coeff_t;
