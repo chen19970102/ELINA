@@ -47,16 +47,17 @@ extern "C" {
 /* ********************************************************************** */
 
 typedef enum elina_scalar_discr_t {
-  ELINA_SCALAR_DOUBLE, /* double-precision floating-point number */
-  ELINA_SCALAR_MPQ,    /* GMP arbitrary precision rational */
-  ELINA_SCALAR_MPFR,   /* MPFR floating-point number */
+  ELINA_SCALAR_DOUBLE, /* double-precision floating-point number */ //double number
+  ELINA_SCALAR_MPQ,    /* GMP arbitrary precision rational */       //任意精確度的有理數
+  ELINA_SCALAR_MPFR,   /* MPFR floating-point number */             
 } elina_scalar_discr_t;
 
 typedef struct elina_scalar_t {
-  elina_scalar_discr_t discr;
-  union {
-    double dbl;
-    mpq_ptr mpq; /* +infty coded by 1/0, -infty coded by -1/0 */
+  //line49
+  elina_scalar_discr_t discr;  //選不同的計算方式
+  union {         //用size最大的data type來分配每個變數的記憶體空間
+    double dbl;   //對應elina_scalar_discr_t的double number
+    mpq_ptr mpq; /* +infty coded by 1/0, -infty coded by -1/0 */  //計算interval的library
     mpfr_ptr mpfr;
   } val;
 } elina_scalar_t;
