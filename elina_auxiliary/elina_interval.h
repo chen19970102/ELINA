@@ -38,6 +38,7 @@ extern "C" {
 #endif
 
 typedef struct elina_interval_t {
+  //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_scalar.h#L55
   elina_scalar_t* inf;
   elina_scalar_t* sup;
 } elina_interval_t;
