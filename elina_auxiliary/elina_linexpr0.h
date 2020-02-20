@@ -52,7 +52,8 @@ typedef enum elina_linexpr_discr_t {
 /* A term, for use in sparse representation */
 /* Meant to be an abstract datatype ! */
 typedef struct elina_linterm_t {
-  elina_dim_t dim;
+  elina_dim_t dim;   //elina_dim_t = unsigned int
+  //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_coeff.h#L48
   elina_coeff_t coeff;
 } elina_linterm_t;
 
@@ -60,11 +61,14 @@ typedef struct elina_linterm_t {
 /* Meant to be an abstract datatype ! */
 typedef struct elina_linexpr0_t {
   elina_coeff_t cst;             /* constant */
-  elina_linexpr_discr_t discr;   /* discriminant for array */
+  //line47
+  elina_linexpr_discr_t discr;   /* discriminant for array */  //選用dense or sparse
   size_t size;             /* size of the array */
   union {
+    //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_coeff.h#L48
     elina_coeff_t* coeff;     /* array of coefficients */
-    elina_linterm_t* linterm; /* array of linear terms */
+    //line54
+    elina_linterm_t* linterm; /* array of linear terms */  //use for sparse
   } p;
 } elina_linexpr0_t;
 /* Important invariant:
