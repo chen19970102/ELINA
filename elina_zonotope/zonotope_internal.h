@@ -149,15 +149,19 @@ typedef struct _zonotope_internal_t {
     //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_manager.h#L58
     elina_funid_t	funid;		/* current function */  //選擇function type
     //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_manager.h#L195
-    elina_manager_t *	man;		/* back-pointer */  //
+    elina_manager_t *	man;		/* back-pointer */  //選擇用哪種library
     elina_manager_t *	manNS;		/* abstract domain of noise symbols */
     elina_manager_t *	box;		/* box abstract domain used to compute constraints meet with an hypercube */
+    //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_lincons0.h#L64
     elina_lincons0_array_t moo;		/* array of constraints -1 <= eps_i <= 1; size = 2index */
+    //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_interval.h#L40
     elina_interval_t*	muu;		/* [-1,1] (elina_interval_t) */
     elina_interval_t*	ap_muu;		/* [-1,1] (type elina_interval) */
+    //line120
     zonotope_aff_t	*top;		/* top interval */
     zonotope_aff_t	*bot;		/* bottom interval */
-    elina_dim_t	*dimtoremove;	/* array to store dimensions to remove after a join */
+    //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_dimension.h#L43
+    elina_dim_t	*dimtoremove;	/* array to store dimensions to remove after a join */  //elina_dim_t = unsigned int
     elina_dimchange_t*	dimchange;
     elina_abstract0_t*	nsymhypercube;
     uint_t* inputns;
