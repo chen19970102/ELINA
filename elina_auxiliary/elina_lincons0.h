@@ -46,14 +46,16 @@ typedef enum elina_constyp_t {
   ELINA_CONS_EQ,    /* equality constraint */
   ELINA_CONS_SUPEQ, /* >= constraint */
   ELINA_CONS_SUP,   /* > constraint */
-  ELINA_CONS_EQMOD, /* congruence equality constraint */
+  ELINA_CONS_EQMOD, /* congruence equality constraint */  //全等符號
   ELINA_CONS_DISEQ  /* disequality constraint */
 } elina_constyp_t;
 
 /* Represents the constraint "expr constyp 0" */
 typedef struct elina_lincons0_t {
+  //https://github.com/chen19970102/ELINA/edit/master/elina_auxiliary/elina_linexpr0.h#L61
   elina_linexpr0_t* linexpr0;  /* expression */
   elina_constyp_t constyp;     /* type of constraint */
+  //https://github.com/chen19970102/ELINA/blob/master/elina_auxiliary/elina_scalar.h#L55
   elina_scalar_t* scalar;      /* maybe NULL.  
 
 			       For EQMOD constraint, indicates the
